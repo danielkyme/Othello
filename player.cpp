@@ -59,7 +59,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      time_t begin_time;
      time_t curr_time;
      double diff_time;
-     
+
      if (msLeft == -1) {
          timeLimit = 0;
      }
