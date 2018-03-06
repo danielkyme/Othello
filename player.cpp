@@ -56,7 +56,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
      std::vector<Move *> possibleMoves;
-     std::vector<int> score;
+     std::vector<int> scores;
 
      time_t begin_time;
      time_t curr_time;
@@ -99,6 +99,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
              mine->setY(j);
              if(newBoard->checkMove(mine, mySide))
              {
+<<<<<<< HEAD
                  std::cerr << mine->getX() << mine->getY() << std::endl;
                  possibleMoves.push_back(mine);
                  std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
@@ -106,30 +107,29 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                  std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
                  score.push_back(s);
                  std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
+                 Move *addmine = new Move(i, j);
+                 possibleMoves.push_back(addmine);
+
+                 int s = getScore(addmine);
+                 scores.push_back(s);
              }
          }
      }
      int max = -10000;
      int index;
-     std::cerr << "ya" << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
-     for(unsigned int i = 0; i < score.size(); i++)
+
+     for(unsigned int i = 0; i < scores.size(); i++)
      {
-         std::cerr << possibleMoves[i]->getX() << possibleMoves[i]->getY() << std::endl;
-         std::cerr << score[i] << "yoo" << std::endl;
-         if(score[i] > max)
+         if(scores[i] > max)
          {
-             std::cerr << score[i] << std::endl;
-             max = score[i];
+             max = scores[i];
              index = i;
          }
      }
+
      newBoard->doMove(possibleMoves[index], mySide);
      return possibleMoves[index];
 
-
-
-
-    //return nullptr;
 
 }
 
