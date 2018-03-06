@@ -12,10 +12,14 @@ public:
     Player(Side side);
     ~Player();
 
+
     Move *doMove(Move *opponentsMove, int msLeft);
 
     // Flag to tell if the player is running within the test_minimax context
     bool testingMinimax;
+    Board *newBoard;
+    Side mySide;
+    Side theirSide;
 };
 
 #endif

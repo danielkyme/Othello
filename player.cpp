@@ -10,6 +10,17 @@
 Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
+    mySide = side;
+    if(side == BLACK)
+    {
+        theirSide = WHITE;
+    }
+    else
+    {
+        theirSide = BLACK;
+    }
+    newBoard = new Board();
+
 
     /*
      * TODO: Do any initialization you need to do here (setting up the board,
@@ -22,6 +33,7 @@ Player::Player(Side side) {
  * Destructor for the player.
  */
 Player::~Player() {
+    delete newBoard;
 }
 
 /*
@@ -42,5 +54,12 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
+
+     newBoard->doMove(opponentsMove, theirSide);
+
+
+
+
+
     return nullptr;
 }
