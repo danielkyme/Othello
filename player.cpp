@@ -2,7 +2,7 @@
 // git ankusheas
 #include "player.hpp"
 #include <time.h>
-
+#include <vector>
 /*
  * Constructor for the player; initialize everything here. The side your AI is
  * on (BLACK or WHITE) is passed in as "side". The constructor must finish
@@ -99,7 +99,6 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
              mine->setY(j);
              if(newBoard->checkMove(mine, mySide))
              {
-                 score =
                  possibleMoves.push_back(mine);
              }
          }
@@ -107,6 +106,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
 
     return nullptr;
+
 }
 
 int Player::getScore(Move *currentmove)
@@ -121,9 +121,13 @@ int Player::getScore(Move *currentmove)
         score = newBoard->countBlack() - newBoard->countWhite();
     }
 
-    //check if corner
-    if(currentmove->getX() == 0 && currentmove->getY() == 0)
+    //check if corner, dark green
+    if((currentmove->getX() == 0 && currentmove->getY() == 0) || (currentmove->getX() == 7 && currentmove->getY() == 0)
+        || (currentmove->getX() == 0 && currentmove->getY() == 7) || (currentmove->getX() == 7 && currentmove->getY() == 7))
     {
-        
+        score = score * 3;
     }
+    // check dark red
+    else if((currentmove->getX() == 0 && currentmove->getY() == 0) || (currentmove->getX() == 7 && currentmove->getY() == 0)
+        || (currentmove->getX() == 0 && currentmove->getY() == 7) || (currentmove->getX() == 7 && currentmove->getY() == 7))
 }
