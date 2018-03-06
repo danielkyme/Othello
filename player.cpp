@@ -103,15 +103,19 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                  possibleMoves.push_back(mine);
                  std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
                  int s = getScore(mine);
+                 std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
                  score.push_back(s);
+                 std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
              }
          }
      }
      int max = -10000;
      int index;
+     std::cerr << "ya" << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
      for(unsigned int i = 0; i < score.size(); i++)
      {
-         //std::cerr << possibleMoves[i]->getX() << possibleMoves[i]->getY() << std::endl;
+         std::cerr << possibleMoves[i]->getX() << possibleMoves[i]->getY() << std::endl;
+         std::cerr << score[i] << "yoo" << std::endl;
          if(score[i] > max)
          {
              std::cerr << score[i] << std::endl;
