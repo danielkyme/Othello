@@ -55,11 +55,13 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
+     std::vector<Move *> possibleMoves;
+     std::vector<int> score;
 
      time_t begin_time;
      time_t curr_time;
      double diff_time;
-     
+
      if (msLeft == -1) {
          timeLimit = 0;
      }
@@ -88,8 +90,6 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                 time(&curr_time);
                 diff_time = difftime(curr_time, begin_time);
 
-                std::cerr << "initial time: " << begin_time << std::endl << 
-                "current time: " << curr_time << std::endl;
                 if (diff_time > (double) (msLeft - 1)) {
                     return nullptr;
                 }
@@ -99,12 +99,31 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
              mine->setY(j);
              if(newBoard->checkMove(mine, mySide))
              {
-                 newBoard->doMove(mine, mySide);
-                 return mine;
+                 score =
+                 possibleMoves.push_back(mine);
              }
          }
      }
 
 
     return nullptr;
+}
+
+int Player::getScore(Move *currentmove)
+{
+    int score;
+    if(mySide == WHITE)
+    {
+        score = newBoard->countWhite() - newBoard->countBlack();
+    }
+    else
+    {
+        score = newBoard->countBlack() - newBoard->countWhite();
+    }
+
+    //check if corner
+    if(currentmove->getX() == 0 && currentmove->getY() == 0)
+    {
+        
+    }
 }
