@@ -22,6 +22,7 @@ public:
     Side mySide;
     Side theirSide;
     bool timeLimit;
+    
 };
 
 #endif

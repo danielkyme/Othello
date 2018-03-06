@@ -141,11 +141,6 @@ void Board::doMove(Move *m, Side side) {
     set(side, X, Y);
 }
 
-void Board::undoMove()
-{
-    
-}
-
 /*
  * Current count of given side's stones.
  */
