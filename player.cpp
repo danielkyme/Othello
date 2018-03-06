@@ -1,6 +1,7 @@
 // git test1 daniel kymealdkfalksdfjad
 // git ankusheas
 #include "player.hpp"
+#include <time.h>
 
 /*
  * Constructor for the player; initialize everything here. The side your AI is
@@ -55,6 +56,23 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
 
+     time_t begin_time;
+     time_t curr_time;
+     double diff_time;
+     
+     if (msLeft == -1) {
+         timeLimit = 0;
+     }
+     else {
+         timeLimit = 1;
+     }
+
+     if (timeLimit == 1) {
+        time(&begin_time);
+     }
+
+
+
      newBoard->doMove(opponentsMove, theirSide);
      if(!newBoard->hasMoves(mySide) || newBoard->isDone())
      {
@@ -66,6 +84,17 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      {
          for(int j = 0; j < 8; j++)
          {
+             if (timeLimit == 1) {
+                time(&curr_time);
+                diff_time = difftime(curr_time, begin_time);
+
+                std::cerr << "initial time: " << begin_time << std::endl << 
+                "current time: " << curr_time << std::endl;
+                if (diff_time > (double) (msLeft - 1)) {
+                    return nullptr;
+                }
+             }
+
              mine->setX(i);
              mine->setY(j);
              if(newBoard->checkMove(mine, mySide))
@@ -75,10 +104,6 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
              }
          }
      }
-
-
-
-
 
 
     return nullptr;

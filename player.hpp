@@ -20,6 +20,7 @@ public:
     Board *newBoard;
     Side mySide;
     Side theirSide;
+    bool timeLimit;
 };
 
 #endif
