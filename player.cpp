@@ -99,8 +99,10 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
              mine->setY(j);
              if(newBoard->checkMove(mine, mySide))
              {
-                 int s = getScore(mine);
+                 std::cerr << mine->getX() << mine->getY() << std::endl;
                  possibleMoves.push_back(mine);
+                 std::cerr << possibleMoves[0]->getX() << possibleMoves[0]->getY() << std::endl;
+                 int s = getScore(mine);
                  score.push_back(s);
              }
          }
@@ -109,6 +111,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      int index;
      for(unsigned int i = 0; i < score.size(); i++)
      {
+         //std::cerr << possibleMoves[i]->getX() << possibleMoves[i]->getY() << std::endl;
          if(score[i] > max)
          {
              std::cerr << score[i] << std::endl;
@@ -128,14 +131,16 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
 int Player::getScore(Move *currentmove)
 {
+    Board *temp = newBoard->copy();
+    newBoard->doMove(currentmove, mySide);
     int score;
     if(mySide == WHITE)
     {
-        score = newBoard->countWhite() - newBoard->countBlack() + 1;
+        score = newBoard->countWhite() - newBoard->countBlack();
     }
     else
     {
-        score = newBoard->countBlack() - newBoard->countWhite() + 1;
+        score = newBoard->countBlack() - newBoard->countWhite();
     }
 
     //check if corner, dark green
@@ -162,6 +167,6 @@ int Player::getScore(Move *currentmove)
     {
         score = score * 2;
     }
-
+    newBoard = temp;
     return score;
 }
