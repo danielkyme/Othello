@@ -99,13 +99,30 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
              mine->setY(j);
              if(newBoard->checkMove(mine, mySide))
              {
+                 int s = getScore(mine);
                  possibleMoves.push_back(mine);
+                 score.push_back(s);
              }
          }
      }
+     int max = -10000;
+     int index;
+     for(unsigned int i = 0; i < score.size(); i++)
+     {
+         if(score[i] > max)
+         {
+             std::cerr << score[i] << std::endl;
+             max = score[i];
+             index = i;
+         }
+     }
+     newBoard->doMove(possibleMoves[index], mySide);
+     return possibleMoves[index];
 
 
-    return nullptr;
+
+
+    //return nullptr;
 
 }
 
@@ -114,11 +131,11 @@ int Player::getScore(Move *currentmove)
     int score;
     if(mySide == WHITE)
     {
-        score = newBoard->countWhite() - newBoard->countBlack();
+        score = newBoard->countWhite() - newBoard->countBlack() + 1;
     }
     else
     {
-        score = newBoard->countBlack() - newBoard->countWhite();
+        score = newBoard->countBlack() - newBoard->countWhite() + 1;
     }
 
     //check if corner, dark green
@@ -128,6 +145,23 @@ int Player::getScore(Move *currentmove)
         score = score * 3;
     }
     // check dark red
-    else if((currentmove->getX() == 0 && currentmove->getY() == 0) || (currentmove->getX() == 7 && currentmove->getY() == 0)
-        || (currentmove->getX() == 0 && currentmove->getY() == 7) || (currentmove->getX() == 7 && currentmove->getY() == 7))
+    else if((currentmove->getX() == 1 && currentmove->getY() == 1) || (currentmove->getX() == 6 && currentmove->getY() == 1)
+        || (currentmove->getX() == 1 && currentmove->getY() == 6) || (currentmove->getX() == 6 && currentmove->getY() == 6))
+    {
+        score = score * -3;
+    }
+    //check light red
+    else if((currentmove->getX() == 1 && currentmove->getY() == 0) || (currentmove->getX() == 0 && currentmove->getY() == 1)
+        || (currentmove->getX() == 6 && currentmove->getY() == 0) || (currentmove->getX() == 7 && currentmove->getY() == 1)
+        || (currentmove->getX() == 6 && currentmove->getY() == 7) || (currentmove->getX() == 7 && currentmove->getY() == 6)
+        || (currentmove->getX() == 6 && currentmove->getY() == 6) || (currentmove->getX() == 1 && currentmove->getY() == 7))
+    {
+        score = score * -2;
+    }
+    else if(currentmove->getX() == 0 || currentmove->getX() == 7 || currentmove->getY() == 0 || currentmove->getY() == 7 )
+    {
+        score = score * 2;
+    }
+
+    return score;
 }
