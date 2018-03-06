@@ -56,6 +56,26 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      */
 
      newBoard->doMove(opponentsMove, theirSide);
+     if(!newBoard->hasMoves(mySide) || newBoard->isDone())
+     {
+         return nullptr;
+     }
+     Move *mine = new Move(1, 1);
+
+     for(int i = 0; i < 8; i++)
+     {
+         for(int j = 0; j < 8; j++)
+         {
+             mine->setX(i);
+             mine->setY(j);
+             if(newBoard->checkMove(mine, mySide))
+             {
+                 newBoard->doMove(mine, mySide);
+                 return mine;
+             }
+         }
+     }
+
 
 
 
