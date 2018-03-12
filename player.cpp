@@ -74,7 +74,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      }
      */ 
 
-    int depth = 5;
+    int depth = 4;
     Move* best_move = new Move(0,0);
 
      newBoard->doMove(opponentsMove, theirSide);
