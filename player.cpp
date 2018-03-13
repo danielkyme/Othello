@@ -98,7 +98,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
 }
 
-int Player::getScore(Move *currentmove, Board* &current_board)
+int Player::getScore(Move *currentmove, Board* current_board)
 {
     Board *temp = current_board->copy();
     current_board->doMove(currentmove, mySide);
@@ -120,7 +120,7 @@ int Player::getScore(Move *currentmove, Board* &current_board)
             score = score * 3;
         }
         else {
-            score = abs(score) * 2;
+            score = score  10;
         }
         
     }
@@ -129,10 +129,10 @@ int Player::getScore(Move *currentmove, Board* &current_board)
         || (currentmove->getX() == 1 && currentmove->getY() == 6) || (currentmove->getX() == 6 && currentmove->getY() == 6))
     {
         if (score > 0){
-            score = score * -2;
+            score = score - 10;
         }
         else {
-            score = abs(score) * -3;
+            score = score * 3;
         }
     }
     //check light red
@@ -142,10 +142,10 @@ int Player::getScore(Move *currentmove, Board* &current_board)
         || (currentmove->getX() == 6 && currentmove->getY() == 6) || (currentmove->getX() == 1 && currentmove->getY() == 7))
     {
         if (score > 0){
-            score = score * -1;
+            score = score - 7;
         }
         else {
-            score = abs(score) * -2;
+            score = score * 2;
         }
     }
     else if(currentmove->getX() == 0 || currentmove->getX() == 7 || currentmove->getY() == 0 || currentmove->getY() == 7 )
@@ -154,9 +154,10 @@ int Player::getScore(Move *currentmove, Board* &current_board)
             score = score * 2;
         }
         else {
-            score = abs(score) * 1;
+            score = score + 7;
         }
     }
+  
     current_board = temp;
     return score;
 }
