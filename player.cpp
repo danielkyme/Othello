@@ -56,25 +56,8 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
 
-    /*
 
-     time_t begin_time;
-     time_t curr_time;
-     double diff_time;
-
-     if (msLeft == -1) {
-         timeLimit = 0;
-     }
-     else {
-         timeLimit = 1;
-     }
-
-     if (timeLimit == 1) {
-        time(&begin_time);
-     }
-     */ 
-
-    int depth = 4;
+    int depth = 2;
     Move* best_move = new Move(0,0);
 
      newBoard->doMove(opponentsMove, theirSide);
@@ -98,7 +81,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
 }
 
-int Player::getScore(Move *currentmove, Board* current_board)
+int Player::getScore(Move *currentmove, Board* &current_board)
 {
     Board *temp = current_board->copy();
     current_board->doMove(currentmove, mySide);
@@ -116,24 +99,27 @@ int Player::getScore(Move *currentmove, Board* current_board)
     if((currentmove->getX() == 0 && currentmove->getY() == 0) || (currentmove->getX() == 7 && currentmove->getY() == 0)
         || (currentmove->getX() == 0 && currentmove->getY() == 7) || (currentmove->getX() == 7 && currentmove->getY() == 7))
     {
-        if (score > 0){
-            score = score * 3;
-        }
-        else {
-            score = score  10;
-        }
-        
+        score = score * 20;
+        // if (score > 0){
+        //     score = score * 20;
+        // }
+        // else {
+        //     score = score * -20;
+        //
+        // }
+
     }
     // check dark red
     else if((currentmove->getX() == 1 && currentmove->getY() == 1) || (currentmove->getX() == 6 && currentmove->getY() == 1)
         || (currentmove->getX() == 1 && currentmove->getY() == 6) || (currentmove->getX() == 6 && currentmove->getY() == 6))
     {
-        if (score > 0){
-            score = score - 10;
-        }
-        else {
-            score = score * 3;
-        }
+        score = score * -5;
+        // if (score > 0){
+        //     score = score * -15;
+        // }
+        // else {
+        //     score = score * 15;
+        // }
     }
     //check light red
     else if((currentmove->getX() == 1 && currentmove->getY() == 0) || (currentmove->getX() == 0 && currentmove->getY() == 1)
@@ -141,29 +127,85 @@ int Player::getScore(Move *currentmove, Board* current_board)
         || (currentmove->getX() == 6 && currentmove->getY() == 7) || (currentmove->getX() == 7 && currentmove->getY() == 6)
         || (currentmove->getX() == 6 && currentmove->getY() == 6) || (currentmove->getX() == 1 && currentmove->getY() == 7))
     {
-        if (score > 0){
-            score = score - 7;
-        }
-        else {
-            score = score * 2;
-        }
+        score = score * -3;
+        // if (score > 0){
+        //     score = score * -10;
+        // }
+        // else {
+        //     score = score * 10;
+        // }
+    }
+    else if((currentmove->getX() == 0 && currentmove->getY() == 2) || (currentmove->getX() == 0 && currentmove->getY() == 5)
+        || (currentmove->getX() == 2 && currentmove->getY() == 0) || (currentmove->getX() == 5 && currentmove->getY() == 0)
+        || (currentmove->getX() == 2 && currentmove->getY() == 7) || (currentmove->getX() == 5 && currentmove->getY() == 7)
+        || (currentmove->getX() == 7 && currentmove->getY() == 2) || (currentmove->getX() == 7 && currentmove->getY() == 5))
+    {
+        score = score * 5;
+        // if (score > 0){
+        //     score = score * 10;
+        // }
+        // else {
+        //     score = score * -10;
+        // }
     }
     else if(currentmove->getX() == 0 || currentmove->getX() == 7 || currentmove->getY() == 0 || currentmove->getY() == 7 )
     {
-        if (score > 0){
-            score = score * 2;
-        }
-        else {
-            score = score + 7;
-        }
+        score = score * 3;
+        // if (score > 0){
+        //     score = score * 8;
+        // }
+        // else {
+        //     score = score * -8;
+        // }
     }
-  
+    else if((currentmove->getX() == 2 && currentmove->getY() == 2) || (currentmove->getX() == 5 && currentmove->getY() == 2)
+        || (currentmove->getX() == 2 && currentmove->getY() == 5) || (currentmove->getX() == 5 && currentmove->getY() == 5))
+    {
+        score = score * 2;
+        // if (score > 0){
+        //     score = score * 2;
+        // }
+        // else {
+        //     score = score * -2;
+        // }
+    }
+
+    else if((currentmove->getX() == 1 && currentmove->getY() == 2) || (currentmove->getX() == 1 && currentmove->getY() == 5)
+        || (currentmove->getX() == 6 && currentmove->getY() == 2) || (currentmove->getX() == 6 && currentmove->getY() == 5)
+        || (currentmove->getX() == 2 && currentmove->getY() == 1) || (currentmove->getX() == 5 && currentmove->getY() == 1)
+        || (currentmove->getX() == 2 && currentmove->getY() == 6) || (currentmove->getX() == 5 && currentmove->getY() == 6))
+    {
+        score = score * 2;
+        // if (score > 0){
+        //     score = score * -5;
+        // }
+        // else {
+        //     score = score * 5;
+        // }
+    }
+
+
+    else if((currentmove->getX() == 1 && currentmove->getY() == 3) || (currentmove->getX() == 1 && currentmove->getY() == 4)
+        || (currentmove->getX() == 6 && currentmove->getY() == 3) || (currentmove->getX() == 6 && currentmove->getY() == 4)
+        || (currentmove->getX() == 3 && currentmove->getY() == 1) || (currentmove->getX() == 4 && currentmove->getY() == 1)
+        || (currentmove->getX() == 3 && currentmove->getY() == 6) || (currentmove->getX() == 4 && currentmove->getY() == 6))
+    {
+        score = score * 2;
+        // if (score > 0){
+        //     score = score * 5;
+        // }
+        // else {
+        //     score = score * -5;
+        // }
+    }
+
+
     current_board = temp;
     return score;
 }
 
 int Player::minimax(Move *currentmove, int depth, bool maximizingPlayer, Board* current_board) {
-    
+
 
     std::vector<Move *> possibleMoves, subset;
     possibleMoves = generate_moves(currentmove, maximizingPlayer, current_board);
@@ -216,7 +258,7 @@ int Player::minimax(Move *currentmove, int depth, bool maximizingPlayer, Board* 
 
 Move * Player::heuristic(int depth) {
     std::vector<Move *> possibleMoves;
-    std::vector<int> scores;    
+    std::vector<int> scores;
     Move *mine = new Move(1, 1);
     int index;
 
@@ -248,7 +290,7 @@ Move * Player::heuristic(int depth) {
          }
      }
 
-    free(mine); 
+    free(mine);
 
      int max = -10000;
      for (unsigned int i = 0; i < scores.size(); i++) {
@@ -262,9 +304,9 @@ Move * Player::heuristic(int depth) {
 }
 
 std::vector <Move *> Player::generate_moves(Move *currentMove, bool max, Board* current_board) {
-    
+
     if (max) {
-        current_board->doMove(currentMove, mySide);   
+        current_board->doMove(currentMove, mySide);
     }
     else {
         current_board->doMove(currentMove, theirSide);
