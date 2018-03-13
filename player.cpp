@@ -175,7 +175,7 @@ int Player::getScore(Move *currentmove, Board* &current_board)
         || (currentmove->getX() == 2 && currentmove->getY() == 1) || (currentmove->getX() == 5 && currentmove->getY() == 1)
         || (currentmove->getX() == 2 && currentmove->getY() == 6) || (currentmove->getX() == 5 && currentmove->getY() == 6))
     {
-        score = score * 2;
+        score = score * -2;
         // if (score > 0){
         //     score = score * -5;
         // }
